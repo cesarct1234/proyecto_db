@@ -1,15 +1,10 @@
 
-
-
-
-# Ahora vamos a crear scripts para las consultas en Python shell
-
-# Consultas básicas para Estudiante y Curso
+from django.db.models import Q, F, Count, Avg, Sum, Min, Max
+from .models import Estudiante, Curso, Libro, Categoria, LibroCategoria
+import time
+from datetime import datetime
 
 # 1. Crear datos de prueba
-from escuela.models import Categoria, Curso, Estudiante, Libro, LibroCategoria
-
-
 def crear_datos_prueba():
     # Crear estudiantes
     estudiantes = [
@@ -56,11 +51,11 @@ def crear_datos_prueba():
     
     # Crear libros
     libros = [
-        Libro(titulo="El nombre del viento", autor="Patrick Rothfuss", fecha_publicacion="2007-03-27", isbn="1234567890123", paginas=662),
-        Libro(titulo="Python Crash Course", autor="Eric Matthes", fecha_publicacion="2019-05-03", isbn="2345678901234", paginas=544),
-        Libro(titulo="1984", autor="George Orwell", fecha_publicacion="1949-06-08", isbn="3456789012345", paginas=328),
-        Libro(titulo="Dune", autor="Frank Herbert", fecha_publicacion="1965-08-01", isbn="4567890123456", paginas=412),
-        Libro(titulo="Clean Code", autor="Robert C. Martin", fecha_publicacion="2008-08-01", isbn="5678901234567", paginas=464)
+        Libro(titulo="El nombre del viento", autor="Patrick Rothfuss", fecha_publicacion=datetime.strptime("2007-03-27", "%Y-%m-%d").date(), isbn="1234567890123", paginas=662),
+        Libro(titulo="Python Crash Course", autor="Eric Matthes", fecha_publicacion=datetime.strptime("2019-05-03", "%Y-%m-%d").date(), isbn="2345678901234", paginas=544),
+        Libro(titulo="1984", autor="George Orwell", fecha_publicacion=datetime.strptime("1949-06-08", "%Y-%m-%d").date(), isbn="3456789012345", paginas=328),
+        Libro(titulo="Dune", autor="Frank Herbert", fecha_publicacion=datetime.strptime("1965-08-01", "%Y-%m-%d").date(), isbn="4567890123456", paginas=412),
+        Libro(titulo="Clean Code", autor="Robert C. Martin", fecha_publicacion=datetime.strptime("2008-08-01", "%Y-%m-%d").date(), isbn="5678901234567", paginas=464)
     ]
     
     for libro in libros:
@@ -168,8 +163,6 @@ def consultas_basicas_cursos():
         print("No se encontró el estudiante.")
 
 # Parte 1: Consultas avanzadas con Q, F y filtrados de texto
-from django.db.models import Q, F, Count, Avg, Sum, Min, Max
-
 def consultas_avanzadas():
     print("CONSULTAS AVANZADAS CON Q, F Y FILTRADOS DE TEXTO:")
     
@@ -387,9 +380,3 @@ def ejecutar_consultas():
     print("\n" + "-"*50 + "\n")
     
     optimizar_consultas()
-
-# Para ejecutar todas las consultas en el shell de Django:
-# python manage.py shell
-# from nombreapp.models import *
-# from nombreapp.consultas import ejecutar_consultas
-# ejecutar_consultas()
